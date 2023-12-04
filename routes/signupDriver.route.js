@@ -10,21 +10,24 @@ function generateUuid() {
 
 router.route("/").post(async (req, res) => {
 	try {
-		const { name, password } = req.body;
+		const { name, password, full_name, address, reg_no } = req.body;
 		const id = generateUuid();
 		const encryptedPassword = await bcrypt.hash(password, 10);
 		con.query(
-			`INSERT INTO auth (id, name, password, role) VALUES ('${id}','${name}', '${encryptedPassword}', 'driver')`,
+			`INSERT INTO auth VALUES ('${id}','${name}', '${encryptedPassword}', 'driver')`,
 			function (err, result) {
 				if (err) throw err;
 			}
 		);
-		con.query(`INSERT INTO driver (id, rides) VALUES ('${id}', 0)`, function (err, result) {
-			if (err) throw err;
-		});
+		con.query(
+			`INSERT INTO driver VALUES ('${id}','${full_name}','${address}', 0)`,
+			function (err, result) {
+				if (err) throw err;
+			}
+		);
 		const carId = generateUuid();
 		con.query(
-			`INSERT INTO car (id, driver_id) VALUES ('${carId}','${id}')`,
+			`INSERT INTO car VALUES ('${carId}','${id}','${reg_no}')`,
 			function (err, result) {
 				if (err) throw err;
 			}

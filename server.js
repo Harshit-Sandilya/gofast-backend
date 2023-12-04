@@ -5,12 +5,12 @@ const con = require("./connect");
 const create = require("./schema.js");
 
 const signupDriver = require("./routes/signupDriver.route");
-const login = require("./routes/login.route");
 const signupUser = require("./routes/signupUser.route");
+const login = require("./routes/login.route");
 const details = require("./routes/get-details");
-const bookRide = require("./routes/book-ride");
 const requestRide = require("./routes/request-ride");
 const allRides = require("./routes/all-rides");
+const bookRide = require("./routes/book-ride");
 const completeRide = require("./routes/complete-ride");
 
 const app = express();

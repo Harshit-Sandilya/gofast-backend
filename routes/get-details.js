@@ -16,10 +16,19 @@ router.route("/").get(async (req, res) => {
 					function (err, resultOther) {
 						if (err) throw err;
 						resultOther = resultOther[0];
-						let finalResult = {
-							name: result.name,
-							rides: resultOther.rides,
-						};
+						let finalResult =
+							result.role === "driver"
+								? {
+										name: result.name,
+										rides: resultOther.rides,
+										full_name: resultOther.full_name,
+										address: resultOther.address,
+								  }
+								: {
+										name: result.name,
+										rides: resultOther.rides,
+										full_name: resultOther.full_name,
+								  };
 						res.status(200).json({
 							message: "User Details Fetched",
 							data: finalResult,

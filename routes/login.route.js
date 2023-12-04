@@ -11,10 +11,7 @@ router.route("/").get(async (req, res) => {
 			if (err) throw err;
 			result = result[0];
 			if (result && bcrypt.compareSync(password, result.password)) {
-				const token = jwt.sign(
-					{ name: result.name, id: result.id },
-					process.env.JWT_SECRET
-				);
+				const token = jwt.sign({ id: result.id }, process.env.JWT_SECRET);
 				res.status(200).json({ message: "User Login Accepted", data: token });
 				return;
 			} else {

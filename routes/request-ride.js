@@ -10,11 +10,11 @@ function generateUuid() {
 
 router.route("/").get(async (req, res) => {
 	try {
-		const { token } = req.body;
+		const { token, time, source, destination } = req.body;
 		const decoded = jwt.verify(token, process.env.JWT_SECRET);
 		const id = generateUuid();
 		con.query(
-			`INSERT INTO ride (id, user_id, status) VALUES ('${id}','${decoded.id}', 'requested')`,
+			`INSERT INTO ride (rid,userId,status,time,source,destination) VALUES ('${id}','${decoded.id}', 'requested', '${time}', '${source}', '${destination}')`,
 			function (err, result) {
 				if (err) throw err;
 			}
